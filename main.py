@@ -1,6 +1,8 @@
 import pygame
+import intro
 
 pygame.init()
+
 
 # Set up the game window
 WINDOW_WIDTH = 1024
@@ -20,7 +22,8 @@ timer = 0
 background_index = 0
 
 # Game loop
-running = True
+running = intro.start_screen_loop()
+
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
