@@ -1,4 +1,5 @@
 import pygame
+import webbrowser
 
 def draw_text_with_outline(surface, text, font, x, y, text_color, outline_color=-1, outline_size=2):
     """
@@ -66,13 +67,17 @@ def start_screen_loop():
                 elif quit_button_rect.collidepoint(event.pos):
                     start_screen = False
                     running = False
+                elif contribute_button_rect.collidepoint(event.pos):
+                    webbrowser.open("https://github.com/MukhtarovEldar/Sheriffs-Chase-Game")
 
         # Draw the start screen elements to the screen
-        font = pygame.font.Font("./Game_Files/UI/TEXAT BOLD PERSONAL USE___.otf", 30)
+        font_name = "./Game_Files/UI/TEXAT BOLD PERSONAL USE___.otf"
+        font = pygame.font.Font(font_name, 30)
 
         screen.blit(intro_image, (0, 0))
         start_button_rect = pygame.draw.rect(screen, (0, 0, 0, 0), (420, 178, 199, 63), 1)
         quit_button_rect = pygame.draw.rect(screen, (0, 0, 0, 0), (420, 268, 199, 63), 1)
+        contribute_button_rect = pygame.draw.rect(screen, (180, 84, 60, 0), (396, 385, 249, 45), 1)
         if start_button_rect.collidepoint(pygame.mouse.get_pos()):
             draw_text_with_outline(screen, "Start", font, 470, 188, (253, 236, 193), (0, 24, 29))
         else:
@@ -82,6 +87,13 @@ def start_screen_loop():
             draw_text_with_outline(screen, "Quit", font, 480, 278, (253, 236, 193), (0, 24, 29))
         else:
             draw_text_with_outline(screen, "Quit", font, 480, 278, (40, 20, 22))
+
+        if contribute_button_rect.collidepoint(pygame.mouse.get_pos()):
+            draw_text_with_outline(screen, "Contribute", font, 420, 387, (253, 236, 193), (0, 24, 29))
+        else:
+            draw_text_with_outline(screen, "Contribute", font, 420, 387, (40, 20, 22))
+
+        draw_text_with_outline(screen, "Press space to play", pygame.font.Font(font_name, 15), 430, 445, (255, 255, 255))
 
         pygame.display.update()
 
