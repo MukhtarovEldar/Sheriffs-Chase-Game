@@ -1,8 +1,8 @@
 import pygame
 import intro
+from sheriff import Player
 
 pygame.init()
-
 
 # Set up the game window
 WINDOW_WIDTH = 1024
@@ -17,9 +17,12 @@ background = pygame.transform.scale(background, (WINDOW_WIDTH, WINDOW_HEIGHT))
 clock = pygame.time.Clock()
 
 # Set up the game variables
-scroll_speed = 3
+scroll_speed = 7
 timer = 0
 background_index = 0
+
+# Create the player object
+player = Player()
 
 # Game loop
 running = intro.start_screen_loop()
@@ -28,6 +31,14 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE or event.key == pygame.K_UP or event.key == pygame.K_w:
+                if not player.jumping:
+                    player.jump()
+            elif event.key == pygame.K_a:
+                player.move_left()
+            elif event.key == pygame.K_d:
+                player.move_right()
 
     # Update the game variables
     timer += clock.tick(60) / 1000
@@ -39,6 +50,10 @@ while running:
     # Draw the background to the screen
     screen.blit(background, (background_index, 0))
     screen.blit(background, (background_index - background.get_width(), 0))
+
+    # Update the player
+    player.update(clock)
+    screen.blit(player.image, player.rect)
 
     pygame.display.update()
 
