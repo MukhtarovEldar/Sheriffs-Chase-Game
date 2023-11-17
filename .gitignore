@@ -1,0 +1,12 @@
+# Ignore pygame related extensions
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore .mp4 and .psd files
+*.mp4
+*.psd
+
+# Ignore VS Code related extensions
+.vscode/
+*.code-workspace
