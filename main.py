@@ -1,5 +1,5 @@
 import pygame
-import intro
+import game_screens
 from sheriff import Player
 
 pygame.init()
@@ -25,7 +25,12 @@ background_index = 0
 player = Player()
 
 # Game loop
-running = intro.start_screen_loop()
+running = game_screens.start_screen_loop(screen)
+
+horse_neighing = pygame.mixer.Sound("./Game_Files/sound/horse_neighing.mp3")
+player.jump()
+horse_neighing.play()
+horse_neighing.set_volume(0.01)
 
 while running:
     for event in pygame.event.get():
@@ -39,6 +44,8 @@ while running:
                 player.move_left()
             elif event.key == pygame.K_d:
                 player.move_right()
+            elif event.key == pygame.K_ESCAPE:
+                running = game_screens.pause_screen_loop(screen)
 
     # Update the game variables
     timer += clock.tick(60) / 1000
