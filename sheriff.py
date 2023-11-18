@@ -26,8 +26,8 @@ class Player:
         self.jump_animation_speed = 0.05
         self.running_sound = pygame.mixer.Sound("./Game_Files/sound/run.mp3")
         self.jumping_sound = pygame.mixer.Sound("./Game_Files/sound/jump.mp3")
-        self.running_sound.set_volume(0.01)
-        self.jumping_sound.set_volume(0.01)
+        self.running_sound.set_volume(0.03)
+        self.jumping_sound.set_volume(0.03)
 
     def jump(self):
         keys = pygame.key.get_pressed()

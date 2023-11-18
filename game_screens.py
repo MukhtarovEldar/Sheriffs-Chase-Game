@@ -1,6 +1,7 @@
 import pygame
 import webbrowser
 
+font_name = "./Game_Files/UI/TEXAT BOLD PERSONAL USE___.otf"
 
 def draw_text_with_outline(surface, text, font, x, y, text_color, outline_color=-1, outline_size=2):
     """
@@ -26,7 +27,7 @@ def draw_text_with_outline(surface, text, font, x, y, text_color, outline_color=
     surface.blit(font.render(text, True, text_color), (x, y))
 
 
-def start_screen_loop(screen, WINDOW_WIDTH=1024, WINDOW_HEIGHT=512):
+def start_screen_loop(screen, WINDOW_WIDTH=1440, WINDOW_HEIGHT=512):
     """
     This function sets up the game window, loads the intro image and sound, and creates the start screen loop.
     The loop waits for user input to either start the game or quit the game.
@@ -50,54 +51,50 @@ def start_screen_loop(screen, WINDOW_WIDTH=1024, WINDOW_HEIGHT=512):
                 if event.key == pygame.K_SPACE:
                     start_screen = False
                     intro_sound.stop()
-                    running = story(screen)
-                    intro_sound.play(loops=-1)
+                    return story(screen, 1440)
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if start_button_rect.collidepoint(event.pos):
                     start_screen = False
                     intro_sound.stop()
-                    running = story(screen)
-                    intro_sound.play(loops=-1)
+                    return story(screen, 1440)
                 elif quit_button_rect.collidepoint(event.pos):
                     start_screen = False
                     running = False
                 elif contribute_button_rect.collidepoint(event.pos):
                     webbrowser.open("https://github.com/MukhtarovEldar/Sheriffs-Chase-Game")
 
-        font_name = "./Game_Files/UI/TEXAT BOLD PERSONAL USE___.otf"
+        # font_name = "./Game_Files/UI/TEXAT BOLD PERSONAL USE___.otf"
         font = pygame.font.Font(font_name, 30)
 
         screen.blit(intro_image, (0, 0))
-        start_button_rect = pygame.draw.rect(screen, (0, 0, 0, 0), (420, 178, 199, 63), 1)
-        quit_button_rect = pygame.draw.rect(screen, (0, 0, 0, 0), (420, 268, 199, 63), 1)
-        contribute_button_rect = pygame.draw.rect(screen, (180, 84, 60, 0), (396, 385, 249, 45), 1)
+        start_button_rect = pygame.draw.rect(screen, (65, 31, 41, 0), (WINDOW_WIDTH // 2 - 107, 178, 199, 63), 1)
+        quit_button_rect = pygame.draw.rect(screen, (0, 0, 0, 0), (WINDOW_WIDTH // 2 - 107, 268, 199, 63), 1)
+        contribute_button_rect = pygame.draw.rect(screen, (180, 84, 60, 0), (WINDOW_WIDTH // 2 - 130, 385, 249, 45), 1)
         if start_button_rect.collidepoint(pygame.mouse.get_pos()):
-            draw_text_with_outline(screen, "Start", font, 470, 188, (253, 236, 193), (0, 24, 29))
+            draw_text_with_outline(screen, "Start", font, WINDOW_WIDTH // 2 - 60, 188, (253, 236, 193), (0, 24, 29))
         else:
-            draw_text_with_outline(screen, "Start", font, 470, 188, (40, 20, 22))
+            draw_text_with_outline(screen, "Start", font, WINDOW_WIDTH // 2 - 60, 188, (40, 20, 22))
 
         if quit_button_rect.collidepoint(pygame.mouse.get_pos()):
-            draw_text_with_outline(screen, "Quit", font, 480, 278, (253, 236, 193), (0, 24, 29))
+            draw_text_with_outline(screen, "Quit", font, WINDOW_WIDTH // 2 - 46, 278, (253, 236, 193), (0, 24, 29))
         else:
-            draw_text_with_outline(screen, "Quit", font, 480, 278, (40, 20, 22))
+            draw_text_with_outline(screen, "Quit", font, WINDOW_WIDTH // 2 - 46, 278, (40, 20, 22))
 
         if contribute_button_rect.collidepoint(pygame.mouse.get_pos()):
-            draw_text_with_outline(screen, "Contribute", font, 420, 387, (253, 236, 193), (0, 24, 29))
+            draw_text_with_outline(screen, "Contribute", font, WINDOW_WIDTH // 2 - 107, 387, (253, 236, 193), (0, 24, 29))
         else:
-            draw_text_with_outline(screen, "Contribute", font, 420, 387, (40, 20, 22))
+            draw_text_with_outline(screen, "Contribute", font, WINDOW_WIDTH // 2 - 107, 387, (40, 20, 22))
 
-        draw_text_with_outline(screen, "Press space to play", pygame.font.Font(font_name, 15), 430, 445, (255, 255, 255))
+        draw_text_with_outline(screen, "Press space to play", pygame.font.Font(font_name, 15), WINDOW_WIDTH // 2 - 97, 445, (255, 255, 255))
 
         pygame.display.update()
 
     intro_sound.stop()
     
-    fade_from_black(screen, WINDOW_WIDTH, WINDOW_HEIGHT)
-    
     return running
 
 
-def pause_screen_loop(screen, WINDOW_WIDTH=1024, WINDOW_HEIGHT=512):
+def pause_screen_loop(screen, WINDOW_WIDTH=1440, WINDOW_HEIGHT=512):
     """
     This function creates the pause screen loop.
     The loop waits for user input to either continue the game or quit the game.
@@ -134,29 +131,28 @@ def pause_screen_loop(screen, WINDOW_WIDTH=1024, WINDOW_HEIGHT=512):
 
         screen.blit(pause_image, (0, 0))
 
-        font_name = "./Game_Files/UI/TEXAT BOLD PERSONAL USE___.otf"
         font = pygame.font.Font(font_name, 30)
 
-        resume_button_rect = pygame.draw.rect(screen, (0, 0, 0, 0), (420, 178, 199, 63), 1)
-        quit_button_rect = pygame.draw.rect(screen, (0, 0, 0, 0), (420, 268, 199, 63), 1)
-        contribute_button_rect = pygame.draw.rect(screen, (180, 84, 60, 0), (396, 385, 249, 45), 1)
+        resume_button_rect = pygame.draw.rect(screen, (0, 0, 0, 0), (WINDOW_WIDTH // 2 - 107, 178, 199, 63), 1)
+        quit_button_rect = pygame.draw.rect(screen, (0, 0, 0, 0), (WINDOW_WIDTH // 2 - 107, 268, 199, 63), 1)
+        contribute_button_rect = pygame.draw.rect(screen, (180, 84, 60, 0), (WINDOW_WIDTH // 2 - 130, 385, 249, 45), 1)
 
         if resume_button_rect.collidepoint(pygame.mouse.get_pos()):
-            draw_text_with_outline(screen, "Resume", font, 457, 188, (253, 236, 193), (0, 24, 29))
+            draw_text_with_outline(screen, "Resume", font, WINDOW_WIDTH // 2 - 70, 188, (253, 236, 193), (0, 24, 29))
         else:
-            draw_text_with_outline(screen, "Resume", font, 457, 188, (40, 20, 22))
+            draw_text_with_outline(screen, "Resume", font, WINDOW_WIDTH // 2 - 70, 188, (40, 20, 22))
 
         if quit_button_rect.collidepoint(pygame.mouse.get_pos()):
-            draw_text_with_outline(screen, "Quit", font, 480, 278, (253, 236, 193), (0, 24, 29))
+            draw_text_with_outline(screen, "Quit", font, WINDOW_WIDTH // 2 - 46, 278, (253, 236, 193), (0, 24, 29))
         else:
-            draw_text_with_outline(screen, "Quit", font, 480, 278, (40, 20, 22))
+            draw_text_with_outline(screen, "Quit", font, WINDOW_WIDTH // 2 - 46, 278, (40, 20, 22))
 
         if contribute_button_rect.collidepoint(pygame.mouse.get_pos()):
-            draw_text_with_outline(screen, "Contribute", font, 420, 387, (253, 236, 193), (0, 24, 29))
+            draw_text_with_outline(screen, "Contribute", font, WINDOW_WIDTH // 2 - 107, 387, (253, 236, 193), (0, 24, 29))
         else:
-            draw_text_with_outline(screen, "Contribute", font, 420, 387, (40, 20, 22))
+            draw_text_with_outline(screen, "Contribute", font, WINDOW_WIDTH // 2 - 107, 387, (40, 20, 22))
 
-        draw_text_with_outline(screen, "Press space to play", pygame.font.Font(font_name, 15), 430, 445, (255, 255, 255))
+        draw_text_with_outline(screen, "Press space to play", pygame.font.Font(font_name, 15), WINDOW_WIDTH // 2 - 97, 445, (255, 255, 255))
 
         pygame.display.update()
 
@@ -165,7 +161,7 @@ def pause_screen_loop(screen, WINDOW_WIDTH=1024, WINDOW_HEIGHT=512):
     return running
 
 
-def story(screen, WINDOW_WIDTH=1024, WINDOW_HEIGHT=512):
+def story(screen, WINDOW_WIDTH=1440, WINDOW_HEIGHT=512):
     """
     This function creates the story screen loop.
     The loop waits for 4 seconds for each image to be displayed.
@@ -195,9 +191,7 @@ def story(screen, WINDOW_WIDTH=1024, WINDOW_HEIGHT=512):
 
         screen.blit(story_images[current_image], (0, 0))
 
-        font_name = "./Game_Files/UI/TEXAT BOLD PERSONAL USE___.otf"
-
-        draw_text_with_outline(screen, "Press space to skip", pygame.font.Font(font_name, 15), 430, 445, (255, 255, 255))
+        draw_text_with_outline(screen, "Press space to skip", pygame.font.Font(font_name, 15), WINDOW_WIDTH // 2 - 80, 445, (255, 255, 255))
 
         pygame.display.update()
 
@@ -216,24 +210,12 @@ def story(screen, WINDOW_WIDTH=1024, WINDOW_HEIGHT=512):
     return running
 
 
-def fade_to_black(screen, WINDOW_WIDTH, WINDOW_HEIGHT):
+def fade_to_black(screen, WINDOW_WIDTH=1440, WINDOW_HEIGHT=512):
     """
     This function creates a black fading effect.
     """
     fade_surface = pygame.Surface((WINDOW_WIDTH, WINDOW_HEIGHT))
     for alpha in range(0, 255, 10):
-        fade_surface.set_alpha(alpha)
-        screen.blit(fade_surface, (0, 0))
-        pygame.display.update()
-        pygame.time.delay(30)
-
-
-def fade_from_black(screen, WINDOW_WIDTH, WINDOW_HEIGHT):
-    """
-    This function creates a black fading effect.
-    """
-    fade_surface = pygame.Surface((WINDOW_WIDTH, WINDOW_HEIGHT))
-    for alpha in range(255, 0, -10):
         fade_surface.set_alpha(alpha)
         screen.blit(fade_surface, (0, 0))
         pygame.display.update()
