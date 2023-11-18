@@ -16,6 +16,8 @@ This project was created by me as a personal project to showcase and practice my
 - Sound:
     - [Western Bass](https://freesound.org/people/Peanut_Shaman/sounds/581415/) by Flower Mantis,
     - "The Good, the Bad and the Ugly" Theme Song
+    - [Clearing Throat](https://freesound.org/people/johnnypanic/sounds/377267/) by johnnypanic
+    - [TTABEFTTOU](https://freesound.org/people/Timbre/sounds/126052/) by Timbre
 - Text Font:
     - [Texas Tango](https://www.dafont.com/texas-tango.font) by Billy Argel Fonts
     - [Carnivalee Freakshow](https://www.dafont.com/carnivalee-freakshow.font) by Chris Hansen

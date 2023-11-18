@@ -25,7 +25,7 @@ class Player:
         self.original_animation_speed = self.animation_speed
         self.jump_animation_speed = 0.05
         self.running_sound = pygame.mixer.Sound("./Game_Files/sound/run.mp3")
-        self.jumping_sound = pygame.mixer.Sound("./Game_Files/sound/jump.mp3")
+        self.jumping_sound = pygame.mixer.Sound("./Game_Files/sound/jumping_clearing_throat.mp3")
         self.running_sound.set_volume(0.03)
         self.jumping_sound.set_volume(0.03)
 
@@ -37,7 +37,7 @@ class Player:
         self.images = self.jump_images
         self.jumping_timer = len(self.jump_images) * self.jump_animation_speed
         self.running_sound.stop()
-        self.jumping_sound.play()
+        self.jumping_sound_channel = self.jumping_sound.play()
 
     def move_left(self):
         if self.jumping:
@@ -49,7 +49,7 @@ class Player:
             if self.animation_speed > 0.1:
                 self.animation_speed = 0.1
             if not self.running_sound.get_num_channels():
-                self.running_sound.play()
+                self.running_sound_channel = self.running_sound.play()
 
     def move_right(self):
         if self.jumping:
@@ -61,7 +61,7 @@ class Player:
             if self.animation_speed < 0.01:
                 self.animation_speed = 0.01
             if not self.running_sound.get_num_channels():
-                self.running_sound.play()
+                self.running_sound_channel = self.running_sound.play()
 
     def update(self, clock):
         keys = pygame.key.get_pressed()
@@ -95,7 +95,7 @@ class Player:
                 self.image = pygame.transform.scale(self.image, (int(self.image.get_width() * 1.5), int(self.image.get_height() * 1.5)))
                 self.image = pygame.transform.flip(self.image, True, False)
                 if not self.running_sound.get_num_channels():
-                    self.running_sound.play()
+                    self.running_sound_channel = self.running_sound.play()
         else:
             self.animation_timer += clock.tick(60) / 1000
             if self.animation_timer >= self.animation_speed:
@@ -106,4 +106,4 @@ class Player:
                 self.image = pygame.transform.flip(self.image, True, False)
                 self.animation_speed = self.original_animation_speed
                 if not self.running_sound.get_num_channels():
-                    self.running_sound.play()
+                    self.running_sound_channel = self.running_sound.play()
