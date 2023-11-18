@@ -1,6 +1,7 @@
 import pygame
 import game_screens
 from sheriff import Player
+from scoring import ScoringSystem
 
 pygame.init()
 
@@ -12,7 +13,7 @@ pygame.display.set_caption("Sheriff's Chase")
 
 # Load the background image
 background = pygame.image.load("./Game_Files/background/bg.png").convert()
-background = pygame.transform.scale(background, (WINDOW_WIDTH, WINDOW_HEIGHT))
+background = pygame.transform.scale(background, (2048, WINDOW_HEIGHT))
 
 # Load the horse carriage image
 horse_carriage = pygame.image.load("./Game_Files/horse/carriage_no_wheel.png").convert_alpha()
@@ -22,7 +23,6 @@ wheel = pygame.transform.scale(wheel, (150, 150))
 clock = pygame.time.Clock()
 
 # Set up the game variables
-scroll_speed = 7
 timer = 0
 background_index = 0
 
@@ -31,6 +31,7 @@ player = Player()
 
 # Game loop
 running = game_screens.start_screen_loop(screen)
+# running = True
 
 horse_neighing = pygame.mixer.Sound("./Game_Files/sound/horse_neighing.mp3")
 player.jump()
@@ -44,6 +45,8 @@ game_sound.set_volume(0.03)
 rotation_angle = 0
 
 anchor_x, anchor_y = wheel.get_width() / 2, wheel.get_height() / 2
+
+scoring_system = ScoringSystem()
 
 while running:
     for event in pygame.event.get():
@@ -61,11 +64,10 @@ while running:
                 running = game_screens.pause_screen_loop(screen)
 
     # Update the game variables
-    timer += clock.tick(60) / 1000
-    scroll_speed += 0.003
+    scoring_system.update(clock)
 
     # Update the position of the background image
-    background_index = (background_index - scroll_speed) % background.get_width()
+    background_index = (background_index - scoring_system.scroll_speed) % background.get_width()
 
     # Draw the background to the screen
     screen.blit(background, (background_index, 0))
@@ -81,12 +83,13 @@ while running:
     screen.blit(rotated_wheel, (pos_x, pos_y))
 
     # Update the rotation angle
-    rotation_angle -= 2
-    rotation_angle -= scroll_speed * 0.1
+    rotation_angle -= 2 + scoring_system.scroll_speed * 0.1
 
     # Update the player
     player.update(clock)
     screen.blit(player.image, player.rect)
+
+    scoring_system.draw(screen)
 
     pygame.display.update()
 
