@@ -3,7 +3,7 @@ This is a western style 2D platform game implemented in Python using Pygame libr
 
 ## How to play
 
-To play the game, you need to have Python 3 and Pygame installed on your computer. Then, you can clone or download this repository and run the main.py file. You can use the **WASD keys**, **arrow keys**, or the **space bar** to control the character. Press **W** or **up arrow key** to jump, **S** or **down arrow key** to get down, **A** or **left arrow key** to move left, and **D** or **right arrow key** to move right.
+To play the game, you need to have Python 3 and Pygame installed on your computer. Then, you can clone or download this repository and run the main.py file. You can use the **WAD keys**, **arrow keys**, or the **space bar** to control the character. Press **W**, **Space bar** or **up arrow key** to jump, **A** or **left arrow key** to move left, and **D** or **right arrow key** to move right.
 
 ## How to contribute
 
@@ -18,6 +18,7 @@ This project was created by me as a personal project to showcase and practice my
     - "The Good, the Bad and the Ugly" Theme Song
     - [Clearing Throat](https://freesound.org/people/johnnypanic/sounds/377267/) by johnnypanic
     - [TTABEFTTOU](https://freesound.org/people/Timbre/sounds/126052/) by Timbre
+    - [Hit wooden object](https://freesound.org/people/Avreliy/sounds/580843/) by Avreliy
 - Text Font:
     - [Texas Tango](https://www.dafont.com/texas-tango.font) by Billy Argel Fonts
     - [Carnivalee Freakshow](https://www.dafont.com/carnivalee-freakshow.font) by Chris Hansen
