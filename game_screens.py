@@ -104,7 +104,7 @@ def pause_screen_loop(screen, WINDOW_WIDTH=1440, WINDOW_HEIGHT=512):
     pause_image = pygame.image.load("./Game_Files/UI/pause.png").convert_alpha()
     pause_image = pygame.transform.scale(pause_image, (WINDOW_WIDTH, WINDOW_HEIGHT))
 
-    # Load the intro sound
+    # Load the pause sound
     pause_sound = pygame.mixer.Sound("./Game_Files/sound/581415__peanut_shaman__western-bass.wav")
     pause_sound.play(loops=-1)
 
@@ -210,6 +210,66 @@ def story(screen, WINDOW_WIDTH=1440, WINDOW_HEIGHT=512):
     return running
 
 
+def game_over_screen_loop(screen, WINDOW_WIDTH=1440, WINDOW_HEIGHT=512):
+    """
+    This function creates the try again screen loop.
+    The loop waits for user input to either try again or quit the game.
+    If the user chooses to try again, the function returns True, otherwise it returns False.
+    """
+
+    # Load the game over sound
+    game_over_sound = pygame.mixer.Sound("./Game_Files/sound/581415__peanut_shaman__western-bass.wav")
+    game_over_sound.play(loops=-1)
+
+    game_over_image = pygame.image.load("./Game_Files/UI/game_over.png").convert_alpha()
+    game_over_image = pygame.transform.scale(game_over_image, (WINDOW_WIDTH, WINDOW_HEIGHT))
+
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    game_over_sound.stop()
+                    return True
+            elif event.type == pygame.QUIT:
+                game_over_sound.stop()
+                return False
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if try_again_button_rect.collidepoint(event.pos):
+                    game_over_sound.stop()
+                    return True
+                elif quit_button_rect.collidepoint(event.pos):
+                    game_over_sound.stop()
+                    return False
+                elif contribute_button_rect.collidepoint(event.pos):
+                    webbrowser.open("https://github.com/MukhtarovEldar/Sheriffs-Chase-Game")
+
+        screen.blit(game_over_image, (0, 0))
+
+        font = pygame.font.Font(font_name, 30)
+
+        try_again_button_rect = pygame.draw.rect(screen, (65, 31, 41, 0), (WINDOW_WIDTH // 2 - 118, 202, 235, 63), 1)
+        quit_button_rect = pygame.draw.rect(screen, (0, 0, 0, 0), (WINDOW_WIDTH // 2 - 118, 292, 235, 63), 1)
+        contribute_button_rect = pygame.draw.rect(screen, (180, 84, 60, 0), (WINDOW_WIDTH // 2 - 123, 400, 249, 45), 1)
+        if try_again_button_rect.collidepoint(pygame.mouse.get_pos()):
+            draw_text_with_outline(screen, "Try Again", font, WINDOW_WIDTH // 2 - 90, 210, (253, 236, 193), (0, 24, 29))
+        else:
+            draw_text_with_outline(screen, "Try Again", font, WINDOW_WIDTH // 2 - 90, 210, (40, 20, 22))
+
+        if quit_button_rect.collidepoint(pygame.mouse.get_pos()):
+            draw_text_with_outline(screen, "Quit", font, WINDOW_WIDTH // 2 - 38, 302, (253, 236, 193), (0, 24, 29))
+        else:
+            draw_text_with_outline(screen, "Quit", font, WINDOW_WIDTH // 2 - 38, 302, (40, 20, 22))
+
+        if contribute_button_rect.collidepoint(pygame.mouse.get_pos()):
+            draw_text_with_outline(screen, "Contribute", font, WINDOW_WIDTH // 2 - 100, 401, (253, 236, 193), (0, 24, 29))
+        else:
+            draw_text_with_outline(screen, "Contribute", font, WINDOW_WIDTH // 2 - 100, 401, (40, 20, 22))
+
+        draw_text_with_outline(screen, "Press space to replay", pygame.font.Font(font_name, 15), WINDOW_WIDTH // 2 - 97, 460, (255, 255, 255))
+
+        pygame.display.update()
+
+
 def fade_to_black(screen, WINDOW_WIDTH=1440, WINDOW_HEIGHT=512):
     """
     This function creates a black fading effect.
@@ -219,4 +279,4 @@ def fade_to_black(screen, WINDOW_WIDTH=1440, WINDOW_HEIGHT=512):
         fade_surface.set_alpha(alpha)
         screen.blit(fade_surface, (0, 0))
         pygame.display.update()
-        pygame.time.delay(30)
+        pygame.time.delay(50)
