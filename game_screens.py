@@ -210,7 +210,7 @@ def story(screen, WINDOW_WIDTH=1440, WINDOW_HEIGHT=512):
     return running
 
 
-def game_over_screen_loop(screen, WINDOW_WIDTH=1440, WINDOW_HEIGHT=512):
+def game_over_screen_loop(screen, best_score, current_score, WINDOW_WIDTH=1440, WINDOW_HEIGHT=512):
     """
     This function creates the try again screen loop.
     The loop waits for user input to either try again or quit the game.
@@ -266,6 +266,12 @@ def game_over_screen_loop(screen, WINDOW_WIDTH=1440, WINDOW_HEIGHT=512):
             draw_text_with_outline(screen, "Contribute", font, WINDOW_WIDTH // 2 - 100, 401, (40, 20, 22))
 
         draw_text_with_outline(screen, "Press space to replay", pygame.font.Font(font_name, 15), WINDOW_WIDTH // 2 - 97, 460, (255, 255, 255))
+
+        font_score = pygame.font.Font("./Game_Files/UI/Carnevalee Freakshow.ttf", 35)
+
+        # Write best_score and current_score to the screen
+        draw_text_with_outline(screen, str(best_score), font_score, WINDOW_WIDTH // 2 + 55, 90, (253, 236, 193), (0, 24, 29))
+        draw_text_with_outline(screen, str(current_score), font_score, WINDOW_WIDTH // 2 + 55, 125, (253, 236, 193), (0, 24, 29))
 
         pygame.display.update()
 
