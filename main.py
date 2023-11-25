@@ -197,16 +197,16 @@ if __name__ == "__main__":
         pygame.display.set_caption("Sheriff's Chase")
 
         # Load the background image
-        background = pygame.image.load("./Game_Files/background/bg.png").convert()
+        background = pygame.image.load("./Game_Files/UI/background/bg.png").convert()
         background = pygame.transform.scale(background, (2048, WINDOW_HEIGHT))
 
         # Load the obstacle image
-        obstacle = pygame.image.load("./Game_Files/horse/barrel.png").convert_alpha()
+        obstacle = pygame.image.load("./Game_Files/UI/horse/barrel.png").convert_alpha()
         obstacle = pygame.transform.scale(obstacle, (83, 83))
 
         # Load the horse carriage and the wheel images
-        horse_carriage = pygame.image.load("./Game_Files/horse/carriage_no_wheel.png").convert_alpha()
-        wheel = pygame.image.load("./Game_Files/horse/wheel.png").convert_alpha()
+        horse_carriage = pygame.image.load("./Game_Files/UI/horse/carriage_no_wheel.png").convert_alpha()
+        wheel = pygame.image.load("./Game_Files/UI/horse/wheel.png").convert_alpha()
         horse_carriage = pygame.transform.scale(horse_carriage, (350, 350))
         wheel = pygame.transform.scale(wheel, (150, 150))
 

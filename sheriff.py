@@ -5,13 +5,13 @@ class Player:
     def __init__(self, screen_width=1024):
         self.images = []
         for i in range(1, 9):
-            self.images.append(pygame.transform.scale(pygame.image.load(f"./Game_Files/horse/{i}.png").convert_alpha(), (230, 230)))
+            self.images.append(pygame.transform.scale(pygame.image.load(f"./Game_Files/UI/horse/{i}.png").convert_alpha(), (230, 230)))
         self.jump_images = []
         for i in range(1, 16):
-            self.jump_images.append(pygame.transform.scale(pygame.image.load(f"./Game_Files/horse/jump/{i}.png").convert_alpha(), (230, 230)))
+            self.jump_images.append(pygame.transform.scale(pygame.image.load(f"./Game_Files/UI/horse/jump/{i}.png").convert_alpha(), (230, 230)))
         self.fall_images = []
         for i in range(1, 35):
-            self.fall_images.append(pygame.transform.scale(pygame.image.load(f"./Game_Files/horse/fall_off/{i}.png").convert_alpha(), (399, 266)))
+            self.fall_images.append(pygame.transform.scale(pygame.image.load(f"./Game_Files/UI/horse/fall_off/{i}.png").convert_alpha(), (399, 266)))
         self.animation_index = 0
         self.animation_timer = 0
         self.image = self.images[self.animation_index]
@@ -104,7 +104,7 @@ class Player:
                     self.images_len = 8
                     if not self.has_fallen_off:
                         for i in range(1, 9):
-                            self.images.append(pygame.transform.scale(pygame.image.load(f"./Game_Files/horse/{i}.png").convert_alpha(), (250, 250)))
+                            self.images.append(pygame.transform.scale(pygame.image.load(f"./Game_Files/UI/horse/{i}.png").convert_alpha(), (250, 250)))
                     self.animation_index = 0
                 else:
                     self.image = self.images[self.animation_index]
@@ -118,7 +118,7 @@ class Player:
                 self.images_len = 8
                 if not self.has_fallen_off:
                     for i in range(1, 9):
-                        self.images.append(pygame.transform.scale(pygame.image.load(f"./Game_Files/horse/{i}.png").convert_alpha(), (250, 250)))
+                        self.images.append(pygame.transform.scale(pygame.image.load(f"./Game_Files/UI/horse/{i}.png").convert_alpha(), (250, 250)))
                 self.animation_index = 0
                 self.image = self.images[self.animation_index]
                 self.image = pygame.transform.scale(self.image, (int(self.image.get_width() * 1.5), int(self.image.get_height() * 1.5)))
@@ -135,7 +135,7 @@ class Player:
                     self.images = []
                     self.images_len = 34
                     for i in range(1, 35):
-                        self.images.append(pygame.transform.scale(pygame.image.load(f"./Game_Files/horse/fall_off/{i}.png").convert_alpha(), (399, 266)))
+                        self.images.append(pygame.transform.scale(pygame.image.load(f"./Game_Files/UI/horse/fall_off/{i}.png").convert_alpha(), (399, 266)))
                     self.animation_index = 0
                 else:
                     self.image = self.images[self.animation_index]
@@ -146,7 +146,7 @@ class Player:
                 self.images = []
                 self.images_len = 34
                 for i in range(1, 35):
-                    self.images.append(pygame.transform.scale(pygame.image.load(f"./Game_Files/horse/fall_off/{i}.png").convert_alpha(), (399, 266)))
+                    self.images.append(pygame.transform.scale(pygame.image.load(f"./Game_Files/UI/horse/fall_off/{i}.png").convert_alpha(), (399, 266)))
                 self.animation_index = 0
                 self.image = self.images[self.animation_index]
                 self.image = pygame.transform.scale(self.image, (int(self.image.get_width() * 1.5), int(self.image.get_height() * 1.5)))

@@ -169,7 +169,7 @@ def story(screen, WINDOW_WIDTH=1440, WINDOW_HEIGHT=512):
     # Load the story images
     story_images = []
     for i in range(1, 5):
-        story_images.append(pygame.image.load(f"./Game_Files/background/scene{i}.png").convert_alpha())
+        story_images.append(pygame.image.load(f"./Game_Files/UI/background/scene{i}.png").convert_alpha())
     story_images = [pygame.transform.scale(image, (WINDOW_WIDTH, WINDOW_HEIGHT)) for image in story_images]
 
     pygame.mixer.music.load("./Game_Files/sound/story_sound.mp3")
