@@ -7,7 +7,10 @@ from scoring import ScoringSystem
 from obstacles import move_and_rotate_obstacles
 
 
-def game_running(WINDOW_WIDTH, screen, background, obstacle, horse_carriage, wheel, horse_neighing, sheriff_speak, barrel_hit, game_sound, player, background_index, running):
+def game_running(WINDOW_WIDTH, screen, background, obstacle,
+                 horse_carriage, wheel, horse_neighing,
+                 sheriff_speak, barrel_hit, game_sound,
+                 player, background_index, running):
     """
     Function that represents the main game loop.
 
@@ -20,7 +23,7 @@ def game_running(WINDOW_WIDTH, screen, background, obstacle, horse_carriage, whe
         horse_carriage (pygame.Surface): The image of the horse carriage.
         wheel (pygame.Surface): The image of the wheel.
         horse_neighing (pygame.mixer.Sound): The sound effect of horse neighing.
-        sheriff_speak (pygame.mixer.Sound): The sound effect of sheriff speaking.
+        sheriff_speak (pygame.mixer.Sound): The sound effect of sheriff speaking
         barrel_hit (pygame.mixer.Sound): The sound effect of barrel hit.
         game_sound (pygame.mixer.Sound): The background music of the game.
         player (Player): The player object.
@@ -28,7 +31,7 @@ def game_running(WINDOW_WIDTH, screen, background, obstacle, horse_carriage, whe
         running (bool): Flag indicating whether the game is running.
 
     Returns:
-        The result of game_over_screen_loop() function call which is a boolean 
+        The result of game_over_screen_loop() function call which is a boolean
         value indicating whether the player wants to play again.
     """
 
@@ -44,8 +47,10 @@ def game_running(WINDOW_WIDTH, screen, background, obstacle, horse_carriage, whe
     # Wheel and barrel rotation angle
     rotation_angle = 0
 
-    anchor_x_wheel, anchor_y_wheel = wheel.get_width() / 2, wheel.get_height() / 2
-    anchor_x_obstacle, anchor_y_obstacle = obstacle.get_width() / 2, obstacle.get_height() / 2
+    anchor_x_wheel = wheel.get_width() / 2
+    anchor_y_wheel = wheel.get_height() / 2
+    anchor_x_obstacle = obstacle.get_width() / 2
+    anchor_y_obstacle = obstacle.get_height() / 2
 
     obstacle_positions = []
 
@@ -63,7 +68,8 @@ def game_running(WINDOW_WIDTH, screen, background, obstacle, horse_carriage, whe
             if event.type == pygame.QUIT:
                 running = False
             elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE or event.key == pygame.K_UP or event.key == pygame.K_w:
+                if event.key == pygame.K_SPACE or event.key == pygame.K_UP \
+                        or event.key == pygame.K_w:
                     if not player.jumping:
                         player.jump()
                 elif event.key == pygame.K_a:
@@ -80,7 +86,7 @@ def game_running(WINDOW_WIDTH, screen, background, obstacle, horse_carriage, whe
                     sheriff_speak_channel.pause()
 
                     running = game_screens.pause_screen_loop(screen)
-                    
+
                     # Unpause the game sound
                     game_sound_channel.unpause()
                     if not player.jumping:
@@ -100,8 +106,8 @@ def game_running(WINDOW_WIDTH, screen, background, obstacle, horse_carriage, whe
             scoring_system.update(clock)
 
         # Update the position of the background image
-        background_index = (background_index - scoring_system.scroll_speed) % background.get_width()
-
+        background_index = (background_index - scoring_system.scroll_speed) % \
+            background.get_width()
         # Draw the background to the screen
         screen.blit(background, (background_index, 0))
         screen.blit(background, (background_index - background.get_width(), 0))
@@ -112,7 +118,9 @@ def game_running(WINDOW_WIDTH, screen, background, obstacle, horse_carriage, whe
         # Generate new obstacles randomly if there are no existing obstacles
         # or if the existing obstacles have moved off the screen
         if not player.falling:
-            if len(obstacle_positions) == 0 or obstacle_positions[-1][0] + obstacle.get_width() + 350 < WINDOW_WIDTH:
+            if len(obstacle_positions) == 0 or \
+                    obstacle_positions[-1][0] + \
+                    obstacle.get_width() + 350 < WINDOW_WIDTH:
                 if random.random() < 0.02:  # Adjust the probability
                     min_space = 550
                     max_space = 1000
@@ -127,15 +135,17 @@ def game_running(WINDOW_WIDTH, screen, background, obstacle, horse_carriage, whe
                         obstacle_positions.append((x, y))
 
         # Move and rotate the obstacles
-        obstacle_positions = move_and_rotate_obstacles(WINDOW_WIDTH, obstacle_positions, obstacle, rotation_angle,
-                                                       anchor_x_obstacle, anchor_y_obstacle, scoring_system, screen,
-                                                       barrel_hit)
+        obstacle_positions = \
+            move_and_rotate_obstacles(WINDOW_WIDTH, obstacle_positions,
+                                      obstacle, rotation_angle,
+                                      anchor_x_obstacle, anchor_y_obstacle,
+                                      scoring_system, screen, barrel_hit)
 
         if player.falling:
             # Move the horse carriage and wheel on x axis to the right
             horse_carriage_x += original_scroll_speed
             wheel_x += original_scroll_speed
-        
+
         # Rotate the wheel image
         rotated_wheel = pygame.transform.rotate(wheel, rotation_angle)
         pos_x_wheel = wheel_x + anchor_x_wheel - rotated_wheel.get_width() // 2
@@ -158,7 +168,8 @@ def game_running(WINDOW_WIDTH, screen, background, obstacle, horse_carriage, whe
 
         # Check for collisions between player and obstacles
         for obstacle_pos in obstacle_positions:
-            obstacle_mask_offset = (obstacle_pos[0] - player.rect.x, obstacle_pos[1] - player.rect.y)
+            obstacle_mask_offset = (obstacle_pos[0] - player.rect.x,
+                                    obstacle_pos[1] - player.rect.y)
             collision = player_mask.overlap(obstacle_mask, obstacle_mask_offset)
 
             if flag_collision or collision:
@@ -172,7 +183,8 @@ def game_running(WINDOW_WIDTH, screen, background, obstacle, horse_carriage, whe
 
             # Game Sound Effects stop
             game_sound.stop()
-            if not player.jumping and not player.jumping_sound_channel.get_busy():
+            if not player.jumping and not \
+                    player.jumping_sound_channel.get_busy():
                 player.running_sound_channel.stop()
             player.jumping_sound_channel.stop()
             horse_neighing_channel.stop()
@@ -180,7 +192,8 @@ def game_running(WINDOW_WIDTH, screen, background, obstacle, horse_carriage, whe
 
             # Load the game over screen
             game_screens.fade_to_black(screen)
-            return game_screens.game_over_screen_loop(screen, scores[0], scores[1])
+            return game_screens.game_over_screen_loop(screen,
+                                                      scores[0], scores[1])
         pygame.display.update()
 
 
@@ -197,23 +210,30 @@ if __name__ == "__main__":
         pygame.display.set_caption("Sheriff's Chase")
 
         # Load the background image
-        background = pygame.image.load("./Game_Files/UI/background/bg.png").convert()
+        background = pygame.image.load("./Game_Files/UI/background/bg.png") \
+            .convert()
         background = pygame.transform.scale(background, (2048, WINDOW_HEIGHT))
 
         # Load the obstacle image
-        obstacle = pygame.image.load("./Game_Files/UI/horse/barrel.png").convert_alpha()
+        obstacle = pygame.image.load("./Game_Files/UI/horse/barrel.png") \
+            .convert_alpha()
         obstacle = pygame.transform.scale(obstacle, (83, 83))
 
         # Load the horse carriage and the wheel images
-        horse_carriage = pygame.image.load("./Game_Files/UI/horse/carriage_no_wheel.png").convert_alpha()
-        wheel = pygame.image.load("./Game_Files/UI/horse/wheel.png").convert_alpha()
+        horse_carriage = \
+            pygame.image.load("./Game_Files/UI/horse/carriage_no_wheel.png") \
+            .convert_alpha()
+        wheel = pygame.image.load("./Game_Files/UI/horse/wheel.png") \
+            .convert_alpha()
         horse_carriage = pygame.transform.scale(horse_carriage, (350, 350))
         wheel = pygame.transform.scale(wheel, (150, 150))
 
         # Load Sound Effects
-        horse_neighing = pygame.mixer.Sound("./Game_Files/sound/horse_neighing.mp3")
+        horse_neighing = \
+            pygame.mixer.Sound("./Game_Files/sound/horse_neighing.mp3")
         horse_neighing.set_volume(0.03)
-        sheriff_speak = pygame.mixer.Sound("./Game_Files/sound/sheriff_speak.mp3")
+        sheriff_speak = \
+            pygame.mixer.Sound("./Game_Files/sound/sheriff_speak.mp3")
         sheriff_speak.set_volume(0.05)
         barrel_hit = pygame.mixer.Sound("./Game_Files/sound/barrel_hit.mp3")
         barrel_hit.set_volume(0.05)
@@ -232,7 +252,10 @@ if __name__ == "__main__":
             running = game_screens.start_screen_loop(screen)
             flag_play_intro = False
 
-        if not game_running(WINDOW_WIDTH, screen, background, obstacle, horse_carriage, wheel, horse_neighing, sheriff_speak, barrel_hit, game_sound, player, background_index, running):
+        if not game_running(WINDOW_WIDTH, screen, background, obstacle,
+                            horse_carriage, wheel, horse_neighing,
+                            sheriff_speak, barrel_hit, game_sound,
+                            player, background_index, running):
             break
 
     pygame.quit()

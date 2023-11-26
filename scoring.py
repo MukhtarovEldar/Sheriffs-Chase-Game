@@ -5,6 +5,7 @@ font_name = "./Game_Files/UI/Carnevalee Freakshow.ttf"
 
 best_score = 0
 
+
 class ScoringSystem:
     def __init__(self):
         self.score = 0
@@ -23,7 +24,8 @@ class ScoringSystem:
         best_score = max(best_score, self.calculated_score)
 
     def draw(self, screen):
-        score_text = self.score_font.render(f"score: {self.calculated_score}", True, (255, 255, 255))
+        score_text = self.score_font.render(
+            f"score: {self.calculated_score}", True, (255, 255, 255))
         screen.blit(score_text, (13, 13))
 
     def calculate_score(self):
