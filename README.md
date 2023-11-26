@@ -1,5 +1,5 @@
 # Sheriff's Chase
-This is a western style 2D platform game implemented in Python using Pygame library. The game features a sheriff character who has to avoid obstacles while trying to catch the thieves of the town in a desert environment. The game is still a work in progress and will have many features.
+This is a western style 2D platform game implemented in Python using Pygame library. The game features a sheriff character who has to avoid obstacles while trying to catch the thieves of the town in a desert environment.
 
 ## How to play
 

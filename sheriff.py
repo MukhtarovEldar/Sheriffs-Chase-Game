@@ -2,7 +2,49 @@ import pygame
 
 
 class Player:
+    """
+    A class representing the player character.
+    """
     def __init__(self, screen_width=1024):
+        """
+        Initialize the Sheriff object.
+
+        Args:
+            screen_width (int): The width of the game screen. Default is 1024.
+
+        Attributes:
+            images (list): A list of horse images.
+            jump_images (list): A list of horse jump images.
+            fall_images (list): A list of horse fall off images.
+            animation_index (int): The index of the current animation frame.
+            animation_timer (int): The timer for animation.
+            image (Surface): The current horse image.
+            jump_image (Surface): The current horse jump image.
+            fall_image (Surface): The current horse fall off image.
+            rect (Rect): The rectangle representing the horse's position.
+            jump_rect (Rect): The rectangle representing
+                the horse's jump position.
+            fall_rect (Rect): The rectangle representing
+                the horse's fall off position.
+            jumping (bool): True if the horse is jumping, False otherwise.
+            falling (bool): True if the horse is falling off, False otherwise.
+            jump_timer (int): The timer for jump animation.
+            fall_timer (int): The timer for fall off animation.
+            animation_speed (float): The speed of the horse animation.
+            jump_animation_speed (float): The speed of the jump animation.
+            fall_animation_speed (float): The speed of the fall off animation.
+            screen_width (int): The width of the game screen.
+            original_animation_speed (float): The original speed
+                of the horse animation.
+            running_sound (Sound): The sound played when the horse is running.
+            jumping_sound (Sound): The sound played when the horse is jumping.
+            falling_sound (Sound): The sound played when the horse
+                is falling off.
+            has_fallen_off (bool): True if the horse has fallen off,
+                False otherwise. Used to control running animation
+                run after the falling animation ends.
+            images_len (int): The length of the images list.
+        """
         self.images = []
         for i in range(1, 9):
             self.images.append(
@@ -52,6 +94,9 @@ class Player:
         self.images_len = 8
 
     def jump(self):
+        """
+        Makes the character jump if the player is not already falling.
+        """
         if self.falling:
             return
         self.jumping = True
@@ -62,6 +107,9 @@ class Player:
         self.animation_index = 0
 
     def move_left(self):
+        """
+        Move the player character to the left.
+        """
         if self.jumping or self.falling:
             # Player is jumping or falling, don't move left
             return
@@ -74,6 +122,9 @@ class Player:
                 self.running_sound_channel = self.running_sound.play()
 
     def move_right(self):
+        """
+        Move the player character to the right.
+        """
         if self.jumping or self.falling:
             # Player is jumping or falling, don't move right
             return
@@ -86,6 +137,10 @@ class Player:
                 self.running_sound_channel = self.running_sound.play()
 
     def fall_off(self):
+        """
+        Sets the sheriff's state to fallen off and
+        initiates the falling animation.
+        """
         self.has_fallen_off = True
         self.falling = True
         self.images = self.fall_images
@@ -95,6 +150,17 @@ class Player:
         self.animation_index = 0
 
     def update(self, clock, scroll_speed):
+        """
+        Update the state of the sheriff character based on user input
+        and game parameters.
+
+        Args:
+            clock (pygame.time.Clock): The game clock object.
+            scroll_speed (float): The current scrolling speed of the game.
+
+        Returns:
+            None
+        """
         keys = pygame.key.get_pressed()
         if keys[pygame.K_a] or keys[pygame.K_LEFT]:
             self.move_left()

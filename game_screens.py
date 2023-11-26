@@ -10,15 +10,15 @@ def draw_text_with_outline(surface, text, font, x, y, text_color,
     Renders text with an optional outline onto a given surface.
 
     Args:
-        surface: The surface to render the text onto.
-        text: The text to render.
-        font: The font to use for rendering.
-        x: The x-coordinate of the top-left corner of the rendered text.
-        y: The y-coordinate of the top-left corner of the rendered text.
-        text_color: The color of the rendered text.
-        outline_color: The color of the outline.
-            If set to -1, no outline will be rendered.
-        outline_size: The size of the outline. Defaults to 2 if not set.
+        surface (pygame.Surface): The surface to draw the text on.
+        text (str): The text to be drawn.
+        font (pygame.font.Font): The font to be used for the text.
+        x (int): The x-coordinate of the top-left corner of the text.
+        y (int): The y-coordinate of the top-left corner of the text.
+        text_color (tuple): The color of the text in RGB format.
+        outline_color (tuple, optional): The color of the outline in RGB format.
+            Defaults to -1 meaning no outline.
+        outline_size (int, optional): The size of the outline. Defaults to 2.
 
     Returns:
         None
@@ -33,11 +33,17 @@ def draw_text_with_outline(surface, text, font, x, y, text_color,
 
 def start_screen_loop(screen, WINDOW_WIDTH=1440, WINDOW_HEIGHT=512):
     """
-    This function sets up the game window, loads the intro image and sound,
-        and creates the start screen loop.
-    The loop waits for user input to either start the game or quit the game.
-    If the user starts the game, the function returns True,
-        otherwise it returns False.
+    Display the start screen of the game and handle user input.
+
+    Args:
+        screen (pygame.Surface): The surface to display the start screen on.
+        WINDOW_WIDTH (int, optional): The width of the game window.
+            Defaults to 1440.
+        WINDOW_HEIGHT (int, optional): The height of the game window.
+            Defaults to 512.
+
+    Returns:
+        bool: True if the game should continue running, False otherwise.
     """
     pygame.display.set_caption("Sheriff's Chase")
 
@@ -72,7 +78,6 @@ def start_screen_loop(screen, WINDOW_WIDTH=1440, WINDOW_HEIGHT=512):
                     webbrowser.open(
                         "https://github.com/MukhtarovEldar/Sheriffs-Chase-Game")
 
-        # font_name = "./Game_Files/UI/TEXAT BOLD PERSONAL USE___.otf"
         font = pygame.font.Font(font_name, 30)
 
         screen.blit(intro_image, (0, 0))
@@ -123,10 +128,17 @@ def start_screen_loop(screen, WINDOW_WIDTH=1440, WINDOW_HEIGHT=512):
 
 def pause_screen_loop(screen, WINDOW_WIDTH=1440, WINDOW_HEIGHT=512):
     """
-    This function creates the pause screen loop.
-    The loop waits for user input to either continue the game or quit the game.
-    If the user continues the game, the function returns True,
-    otherwise it returns False.
+    Display the pause screen and handle user input for the pause menu.
+
+    Args:
+        screen (pygame.Surface): The surface to blit the pause screen on.
+        WINDOW_WIDTH (int, optional): The width of the game window.
+            Defaults to 1440.
+        WINDOW_HEIGHT (int, optional): The height of the game window.
+            Defaults to 512.
+
+    Returns:
+        bool: True if the game should continue running, False otherwise.
     """
     # Load the pause image
     pause_image = pygame.image.load(
@@ -213,8 +225,19 @@ def pause_screen_loop(screen, WINDOW_WIDTH=1440, WINDOW_HEIGHT=512):
 
 def story(screen, WINDOW_WIDTH=1440, WINDOW_HEIGHT=512):
     """
-    This function creates the story screen loop.
+    Display the story screen and handle user input to skip the story.
     The loop waits for 4 seconds for each image to be displayed.
+
+    Args:
+        screen (pygame.Surface): The surface to blit the story images on.
+        WINDOW_WIDTH (int, optional): The width of the game window.
+            Defaults to 1440.
+        WINDOW_HEIGHT (int, optional): The height of the game window.
+            Defaults to 512.
+
+    Returns:
+        bool: True if the story was skipped and the game should continue,
+            False otherwise.
     """
     # Load the story images
     story_images = []
@@ -268,10 +291,20 @@ def game_over_screen_loop(
         screen, best_score, current_score,
         WINDOW_WIDTH=1440, WINDOW_HEIGHT=512):
     """
-    This function creates the try again screen loop.
-    The loop waits for user input to either try again or quit the game.
-    If the user chooses to try again, the function returns True,
-    otherwise it returns False.
+    The main loop for the game over screen.
+
+    Args:
+        screen (pygame.Surface): The surface to draw the game over screen on.
+        best_score (int): The best score achieved in the game.
+        current_score (int): The current score achieved in the game.
+        WINDOW_WIDTH (int, optional): The width of the game window.
+            Defaults to 1440.
+        WINDOW_HEIGHT (int, optional): The height of the game window.
+            Defaults to 512.
+
+    Returns:
+        bool: True if the player wants to play again,
+            False if the player wants to quit.
     """
 
     # Load the game over sound
@@ -362,7 +395,7 @@ def game_over_screen_loop(
 
 def fade_to_black(screen, WINDOW_WIDTH=1440, WINDOW_HEIGHT=512):
     """
-    This function creates a black fading effect.
+    Function to create a black fading effect.
     """
     fade_surface = pygame.Surface((WINDOW_WIDTH, WINDOW_HEIGHT))
     for alpha in range(0, 255, 10):

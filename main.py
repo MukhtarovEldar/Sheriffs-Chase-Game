@@ -16,7 +16,6 @@ def game_running(WINDOW_WIDTH, screen, background, obstacle,
 
     Args:
         WINDOW_WIDTH (int): The width of the game window.
-        WINDOW_HEIGHT (int): The height of the game window.
         screen (pygame.Surface): The surface representing the game window.
         background (pygame.Surface): The background image of the game.
         obstacle (pygame.Surface): The image of the obstacle.
@@ -95,7 +94,7 @@ def game_running(WINDOW_WIDTH, screen, background, obstacle,
                     horse_neighing_channel.unpause()
                     sheriff_speak_channel.unpause()
 
-        # Update the game variables
+        # Update the game variables according to the player's falling state
         if player.falling:
             if original_scroll_speed is None:
                 original_scroll_speed = scoring_system.scroll_speed
